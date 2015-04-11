@@ -1,5 +1,7 @@
 //method to go inside class that searches songs n shit
 import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 class DBtest {
 
@@ -14,11 +16,12 @@ public void connectDB()
 	{
 		//File  db = new File("songs.sql");
 		
-			Class.forName("org.mysql.JDBC.Driver");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			//Class.forName("com.mysql.jdbc.Driver");
 			//conn = DriverManager.getConnection("jdbc:mysql://localhost/songs.sql","root","");
-			conn = DriverManager.getConnection("jdbc:mysql:songs.sql");
-			my_query = conn.prepareStatement("select * from songs");
+			//conn = DriverManager.getConnection("jdbc:mysql:songs.sql");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/songs.sql", "", "");
+			/*my_query = conn.prepareStatement("select * from songs");
 			my_result = my_query.executeQuery();
 
 			while(my_result.next())
@@ -28,7 +31,7 @@ public void connectDB()
 				System.out.println(my_result.getString("Artist"));
 				System.out.println(my_result.getString("Album"));
 				System.out.println(my_result.getString("Genre"));
-			}
+			}*/
 		
 
 
