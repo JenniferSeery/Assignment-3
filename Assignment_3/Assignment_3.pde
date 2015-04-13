@@ -1,12 +1,12 @@
 import ddf.minim.*;
+int s;
 //for frequency spectrum
 import ddf.minim.analysis.*;
 
 Minim minim;
 FFT fft; //frequency spectrum stuff
-AudioPlayer[] songs = new AudioPlayer[7]; //make 21 when all mp3 files are added
-AudioMetaData[] meta = new AudioMetaData[7];
 
+int current;
 boolean a = true;
 
 PImage Logo;
@@ -17,12 +17,9 @@ PImage ForwardButton;
 PImage BackButton;
 PImage PauseButton;
 
-int current;
 String songNumber;
-int s;
-int state = 1;
-int size1 = 70;
-int size2 = 50;
+AudioPlayer[] songs = new AudioPlayer[6]; //make 21 when all mp3 files are added
+AudioMetaData[] meta = new AudioMetaData[6];
 
 void setup()
 {
@@ -35,25 +32,29 @@ void setup()
  ForwardButton = loadImage("ForwardButton.png");
  BackButton = loadImage("BackButton.png");
  PauseButton = loadImage("PauseButton.png");
+
  
-   minim = new Minim(this);
+  minim = new Minim(this);
   // this loads mysong.wav from the data folder
   
-  for (int i = 1 ; i < songs.length; i++) 
+  for (int i = 0 ; i < songs.length; i++) 
   {  
-    songNumber = nf(i,1) + ".mp3";  
-    println(songNumber);
-    songs[i] = minim.loadFile(songNumber);
+    songNumber = nf(i,2) + ".mp3";  
+    songs[i] = minim.loadFile(songNumber); 
     meta[i] = songs[i].getMetaData();  
- 
-  }  
   
-   s = (int)random(1, 7);
+   // println("File Name :" + meta[i].fileName());
+    //println("Title :" + meta[i].title());
+    //println("Author :" + meta[i].author());
+    //println("Genre:" + meta[i].genre());
+  }
+  
+   s = (int)random(0, 5);
    println("File Name :" + meta[s].fileName());
    println("Title :" + meta[s].title());
    println("Author :" + meta[s].author());
    println("Genre:" + meta[s].genre());
-  
+   
   //song = minim.loadFile("3.mp3", 2048); //2048 is length of the sample buffers
   
   //FFT needs to know how long the audio buffers its gonna be analyzing are
@@ -81,14 +82,14 @@ void setup()
           {
               light.add(new Lights(x, y, color(12*bright, 195*bright, 221*bright)));
           } 
-    }
+      }
   }
   
   for(int x = 195 ; x < ((width/6)*5) ; x += 20)
   {
     for(int y = (int)random(10, 30) ; y < height/10 ; y += 20)
     {
-      float bright = random(0.5, 2);
+       float bright = random(0.5, 2);
           if(x >= 195 && x < ((width/6)*5))
           {
               light.add(new Lights(x, y, color(221*bright, 12*bright, 169*bright)));
@@ -101,6 +102,10 @@ void setup()
     addSequence();
   }
 }
+
+int state = 1;
+int size1 = 70;
+int size2 = 50;
 
 ArrayList<Lights> light = new ArrayList<Lights>();
 ArrayList<Integer> sequence = new ArrayList<Integer>();
@@ -135,7 +140,7 @@ void mousePressed()
     {
       image(PlayButton, width/2, height-50, size1, size1);
       a = false;
-      songs[s].pause();
+      songs[s].pause(); 
       noLoop();
     }
     else    
@@ -159,7 +164,8 @@ void mousePressed()
      Mainmenu();
   }
   
-  if(mouseX > (width/4)*3 && ((width/4)*3)+100 < width && mouseY > (height/3)*2 && mouseY < ((height/3)*2)+100)
+  //rect((width/4)*3, (height/3)*2, 100, 100);
+  if(mouseX > (width/4)*3 && mouseX < ((width/4)*3)+100 && mouseY > (height/3)*2 && mouseY < ((height/3)*2)+100)
   {
     if(state == 1)
     {
@@ -167,8 +173,7 @@ void mousePressed()
       state += 1;
     }
   }
-  
-    //  image(ForwardButton, width/2+100, height-50, 50, 50);
+  //  image(ForwardButton, width/2+100, height-50, 50, 50);
   if(mouseX > (width/2)+70 && mouseX < (width/2)+130 && mouseY > height-70 && mouseY < height-20)
   {
     songs[s].pause();

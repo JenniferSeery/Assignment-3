@@ -50,4 +50,8 @@ void Player()
   image(BackButton, width/2- 100, height-50, 50, 50);
   image(On2, width/4, height-50, 50, 50);
   rect((width/4)*3-50, height-75, 120, 50);
+  
+  fill(255);
+  textAlign(CENTER);
+  text(meta[s].title() + "-" + meta[s].author(), width/2, height-110);
 }
