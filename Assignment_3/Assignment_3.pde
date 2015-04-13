@@ -5,6 +5,8 @@ import ddf.minim.analysis.*;
 Minim minim;
 FFT fft; //frequency spectrum stuff
 AudioPlayer[] songs = new AudioPlayer[7]; //make 21 when all mp3 files are added
+AudioMetaData[] meta = new AudioMetaData[7];
+
 boolean a = true;
 
 PImage Logo;
@@ -41,10 +43,16 @@ void setup()
   {  
     songNumber = nf(i,1) + ".mp3";  
     println(songNumber);
-    songs[i] = minim.loadFile(songNumber); 
+    songs[i] = minim.loadFile(songNumber);
+    meta[i] = songs[i].getMetaData();  
+ 
   }  
   
-  s = 1;
+   s = (int)random(1, 7);
+   println("File Name :" + meta[s].fileName());
+   println("Title :" + meta[s].title());
+   println("Author :" + meta[s].author());
+   println("Genre:" + meta[s].genre());
   
   //song = minim.loadFile("3.mp3", 2048); //2048 is length of the sample buffers
   
@@ -160,4 +168,37 @@ void mousePressed()
     }
   }
   
+    //  image(ForwardButton, width/2+100, height-50, 50, 50);
+  if(mouseX > (width/2)+70 && mouseX < (width/2)+130 && mouseY > height-70 && mouseY < height-20)
+  {
+    songs[s].pause();
+    songs[s].rewind();
+    if(s == songs.length-1)
+    {
+        s = 0;
+    }
+    else
+    {
+       s += 1; 
+    }
+    songs[s].play();
+  }
+  
+   // image(ForwardButton, width/2+ 100, height-50, 50, 50);
+  //image(BackButton, width/2- 100, height-50, 50, 50);
+  if(mouseX > (width/2)-130 && mouseX < (width/2)-70 && mouseY > height-70 && mouseY < height-20)
+  {
+      songs[s].pause();
+      songs[s].rewind();
+      if(s == 0)
+      {
+        s = songs.length-1;
+      }
+      else
+      {
+        s -= 1; 
+      }
+      songs[s].play();
+   }
 }
+
