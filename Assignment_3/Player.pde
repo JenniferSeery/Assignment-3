@@ -1,6 +1,31 @@
 void Player()
 {
   background(0);
+
+  int flash = -1;
+      
+    if(frameCount % 2 == 0)
+    {
+      flash = sequence.get(current).intValue();
+      current++;
+      if(current == sequence.size())
+      {
+        current = 0;
+      }
+    }
+
+  
+  for(int i = 0 ; i< light.size() ; i++)
+  {
+    if(i == flash)
+    {
+      light.get(i).display(true);
+    }
+    else
+    {
+      light.get(i).display(false);
+    }
+  }
   
   fill(0);
   stroke(255);
