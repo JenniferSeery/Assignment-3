@@ -106,6 +106,7 @@ void setup()
 int state = 1;
 int size1 = 70;
 int size2 = 50;
+int butt;
 
 ArrayList<Lights> light = new ArrayList<Lights>();
 ArrayList<Integer> sequence = new ArrayList<Integer>();
@@ -204,6 +205,66 @@ void mousePressed()
         s -= 1; 
       }
       songs[s].play();
+   }
+   
+    if(state == 3)
+   {
+       if(mouseX > ((width/2)-150) && mouseX < ((width/2)+150) && mouseY > (height/4) && mouseY < ((height/4)+100))
+       {
+           state = 4;
+           Allsongs();
+       }
+       
+       if(mouseX > ((width/2)-150) && mouseX < ((width/2)+150) && mouseY > ((height/4)*2) && mouseY < (((height/4)*2)+100))
+       {
+           state = 4;
+           Genre();
+       }
+       
+       if(mouseX > ((width/2)-150) && mouseX < ((width/2)+150) && mouseY > ((height/4)*3) && mouseY < (((height/4)*3)+100))
+       {
+           state = 4;
+           background(25);
+       }
+   }
+   
+   if(state == 4)
+   {
+     if(mouseX > 250 && mouseX < 550 && mouseY > (height/4) && mouseY < ((height/4)+100))
+     {
+           butt = 01;
+           Songselection();
+     }
+     
+     if(mouseX > 250 && mouseX < 550 && mouseY > (height/4)+150 && mouseY < ((height/4)+250))
+     {
+           butt = 02;
+           Songselection();
+    }
+    
+    if(mouseX > 250 && mouseX < 550 && mouseY > (height/4)+300 && mouseY < ((height/4)+400))
+    {
+           butt = 03;
+           Songselection();
+    }
+    
+    if(mouseX > width/2+100 && mouseX < width/2+400 && mouseY > (height/4) && mouseY < ((height/4)+100))
+    {
+           butt = 04;
+           Songselection();
+    }
+    
+    if(mouseX > width/2+100 && mouseX < width/2+400 && mouseY > (height/4)+150 && mouseY < ((height/4)+250))
+    {
+           butt = 05;
+           Songselection();
+    }
+    
+    if(mouseX > width/2+100 && mouseX < width/2+400 && mouseY > (height/4)+300 && mouseY < ((height/4)+400))
+    {
+           butt = 06;
+          Songselection();
+    }
    }
 }
 
