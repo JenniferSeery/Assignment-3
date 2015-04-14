@@ -53,5 +53,6 @@ void Player()
   
   fill(255);
   textAlign(CENTER);
+  textFont(font);
   text(meta[s].title() + "-" + meta[s].author(), width/2, height-110);
 }

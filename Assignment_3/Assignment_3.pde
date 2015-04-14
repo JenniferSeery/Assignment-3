@@ -16,10 +16,11 @@ PImage PlayButton;
 PImage ForwardButton;
 PImage BackButton;
 PImage PauseButton;
+PFont font;
 
 String songNumber;
-AudioPlayer[] songs = new AudioPlayer[6]; //make 21 when all mp3 files are added
-AudioMetaData[] meta = new AudioMetaData[6];
+AudioPlayer[] songs = new AudioPlayer[16]; //make 21 when all mp3 files are added
+AudioMetaData[] meta = new AudioMetaData[16];
 
 void setup()
 {
@@ -32,6 +33,7 @@ void setup()
  ForwardButton = loadImage("ForwardButton.png");
  BackButton = loadImage("BackButton.png");
  PauseButton = loadImage("PauseButton.png");
+ font = createFont("Lighthouse.ttf", 25);
 
  
   minim = new Minim(this);
@@ -42,18 +44,10 @@ void setup()
     songNumber = nf(i,2) + ".mp3";  
     songs[i] = minim.loadFile(songNumber); 
     meta[i] = songs[i].getMetaData();  
-  
-   // println("File Name :" + meta[i].fileName());
-    //println("Title :" + meta[i].title());
-    //println("Author :" + meta[i].author());
-    //println("Genre:" + meta[i].genre());
+   // println("Genre:" + meta[i].comment());
   }
   
-   s = (int)random(0, 5);
-   println("File Name :" + meta[s].fileName());
-   println("Title :" + meta[s].title());
-   println("Author :" + meta[s].author());
-   println("Genre:" + meta[s].genre());
+   s = (int)random(0, 16);
    
   //song = minim.loadFile("3.mp3", 2048); //2048 is length of the sample buffers
   
@@ -233,37 +227,40 @@ void mousePressed()
      if(mouseX > 250 && mouseX < 550 && mouseY > (height/4) && mouseY < ((height/4)+100))
      {
            butt = 01;
-           Songselection();
+           println(butt);
+           DisplaySongs();
      }
      
      if(mouseX > 250 && mouseX < 550 && mouseY > (height/4)+150 && mouseY < ((height/4)+250))
      {
            butt = 02;
-           Songselection();
+           DisplaySongs();
     }
     
     if(mouseX > 250 && mouseX < 550 && mouseY > (height/4)+300 && mouseY < ((height/4)+400))
     {
            butt = 03;
-           Songselection();
+           println(butt);
+           DisplaySongs();
     }
     
     if(mouseX > width/2+100 && mouseX < width/2+400 && mouseY > (height/4) && mouseY < ((height/4)+100))
     {
            butt = 04;
-           Songselection();
+           DisplaySongs();
     }
     
     if(mouseX > width/2+100 && mouseX < width/2+400 && mouseY > (height/4)+150 && mouseY < ((height/4)+250))
     {
            butt = 05;
-           Songselection();
+           DisplaySongs();
     }
     
     if(mouseX > width/2+100 && mouseX < width/2+400 && mouseY > (height/4)+300 && mouseY < ((height/4)+400))
     {
            butt = 06;
-          Songselection();
+           println(butt);
+           DisplaySongs();
     }
    }
 }
