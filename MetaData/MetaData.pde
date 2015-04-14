@@ -24,14 +24,15 @@ void setup()
   //also needs to know the sample rate
   fft = new FFT(song.bufferSize(), song.sampleRate());
   
-   println("File Name :" + meta.fileName());
+   /*println("File Name :" + meta.fileName());
     println("Title :" + meta.title());
     println("Author :" + meta.author());
      println("Genre:" + meta.genre());
     println("Date :" + meta.date());
     println("Album :" + meta.album());
     println("Comment: " + meta.comment());
-  
+  */
+
   //println(song.bufferSize());
   //println(song.sampleRate());
   
@@ -50,12 +51,16 @@ void draw()
   for(int i = 250; i < song.bufferSize() /3; i++)
   {
     
-    line(i, 250 + song.left.get(i)*100, i+1, 251 + song.left.get(i+1)*100 );
-    
-   
-    
-    
+    //line(i, 250 + song.left.get(i)*100, i+1, 251 + song.left.get(i+1)*100 );
     //line(i, 250 + song.right.get(i)*50, i+1, 250 + song.right.get(i+1)*50);
   }
+  
+    int x = 0;
+  int y = 50;
+  int col = width/3;
+  fill(255);
+  text("Title: " + meta.title(), x, y);
+        text("Author: " + meta.author(), x + col, y); 
+        text("Genre: " + meta.genre(), x + (col * 2), y);
   
 }
