@@ -1,5 +1,4 @@
 import ddf.minim.*;
-int s;
 //for frequency spectrum
 import ddf.minim.analysis.*;
 
@@ -8,11 +7,13 @@ FFT fft; //frequency spectrum stuff
 
   
 int current;
+int s;
 boolean a = true;
 int butt;
 char m = 'A';
+String songNumber;
 
-
+//import images
 PImage bg;
 PImage Logo;
 PImage On1;
@@ -24,7 +25,6 @@ PImage BackButton;
 PImage PauseButton;
 PFont font;
 
-String songNumber;
 AudioPlayer[] songs = new AudioPlayer[16]; //make 21 when all mp3 files are added
 AudioMetaData[] meta = new AudioMetaData[16];
 
@@ -32,6 +32,7 @@ void setup()
 {
  size(1200, 660);
  
+ //load all images
  bg = loadImage("bg.png");
  bg.resize(width, height);
  Logo = loadImage("Jukeboxlogo.png");
@@ -46,8 +47,8 @@ void setup()
 
  
   minim = new Minim(this);
+
   // this loads mysong.wav from the data folder
-  
   for (int i = 0 ; i < songs.length; i++) 
   {  
     songNumber = nf(i,2) + ".mp3";  
@@ -55,13 +56,12 @@ void setup()
     meta[i] = songs[i].getMetaData();  
   }
   
+  //picks a random song to start
    s = (int)random(1, 16);
    println("File Name :" + meta[s].fileName());
    println("Title :" + meta[s].title());
    println("Author :" + meta[s].author());
    println("Genre:" + meta[s].genre());
-   
-  //song = minim.loadFile("3.mp3", 2048); //2048 is length of the sample buffers
   
   //FFT needs to know how long the audio buffers its gonna be analyzing are
   //also needs to know the sample rate
@@ -92,6 +92,7 @@ void setup()
 
   }
   
+  //second set of colours
   for(int x = 195 ; x < ((width/6)*5) ; x += 20)
   {
     for(int y = (int)random(10, 30) ; y < height/10 ; y += 20)
@@ -104,6 +105,7 @@ void setup()
     }
   }
 
+  //sequence for flashing lights
   for (int i = 0 ; i < 50 ; i ++)
   {  
     addSequence();
