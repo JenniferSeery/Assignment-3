@@ -19,12 +19,10 @@ void Allsongs()
       y+=yi;
   }
   
-  //display the correct number of buttons for the number of songs imported
   for(int j = 0 ; j < songs.length ; j++)
   {
       button.get(j).display();
   }
   
-  //draw the on button
   image(On2, width/4, height-50, 50, 50);
 }

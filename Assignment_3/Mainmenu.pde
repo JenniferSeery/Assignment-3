@@ -1,4 +1,4 @@
-void Mainmenu()
+void MainMenu()
 {
   background(0);
   textSize(50);
@@ -18,6 +18,6 @@ void Mainmenu()
   fill(12, 195, 221); 
   rect((width/2)-150, (height/4)*3, 300, 100);
   fill(255);
-  text("Artist", (width/2), (height/2)+220);
+  text("Back", (width/2), (height/2)+220);
 }
 

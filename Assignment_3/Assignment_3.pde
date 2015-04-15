@@ -1,19 +1,17 @@
 import ddf.minim.*;
+int s;
 //for frequency spectrum
 import ddf.minim.analysis.*;
 
 Minim minim;
 FFT fft; //frequency spectrum stuff
-
   
 int current;
-int s;
 boolean a = true;
 int butt;
 char m = 'A';
-String songNumber;
 
-//import images
+
 PImage bg;
 PImage Logo;
 PImage On1;
@@ -25,14 +23,14 @@ PImage BackButton;
 PImage PauseButton;
 PFont font;
 
-AudioPlayer[] songs = new AudioPlayer[16]; //make 21 when all mp3 files are added
+String songNumber;
+AudioPlayer[] songs = new AudioPlayer[16]; 
 AudioMetaData[] meta = new AudioMetaData[16];
 
 void setup()
 {
  size(1200, 660);
  
- //load all images
  bg = loadImage("bg.png");
  bg.resize(width, height);
  Logo = loadImage("Jukeboxlogo.png");
@@ -47,8 +45,8 @@ void setup()
 
  
   minim = new Minim(this);
-
   // this loads mysong.wav from the data folder
+  
   for (int i = 0 ; i < songs.length; i++) 
   {  
     songNumber = nf(i,2) + ".mp3";  
@@ -56,12 +54,7 @@ void setup()
     meta[i] = songs[i].getMetaData();  
   }
   
-  //picks a random song to start
    s = (int)random(1, 16);
-   println("File Name :" + meta[s].fileName());
-   println("Title :" + meta[s].title());
-   println("Author :" + meta[s].author());
-   println("Genre:" + meta[s].genre());
   
   //FFT needs to know how long the audio buffers its gonna be analyzing are
   //also needs to know the sample rate
@@ -81,18 +74,17 @@ void setup()
       int b = 200;
           if(x > 0 && x < width/4)
           {
-              light.add(new Lights(x, y, color(38*bright, 221*bright, 12*bright)));
+              squares.add(new Square(x, y, color(38*bright, 221*bright, 12*bright)));
           }
 
           if(x > (width/4)*3 && x < width)
           {
-              light.add(new Lights(x, y, color(12*bright, 195*bright, 221*bright)));
+              squares.add(new Square(x, y, color(12*bright, 195*bright, 221*bright)));
           } 
     }
 
   }
   
-  //second set of colours
   for(int x = 195 ; x < ((width/6)*5) ; x += 20)
   {
     for(int y = (int)random(10, 30) ; y < height/10 ; y += 20)
@@ -100,12 +92,11 @@ void setup()
       float bright = random(0.5, 2);
           if(x >= 195 && x < ((width/6)*5))
           {
-              light.add(new Lights(x, y, color(221*bright, 12*bright, 169*bright)));
+              squares.add(new Square(x, y, color(221*bright, 12*bright, 169*bright)));
           }
     }
   }
 
-  //sequence for flashing lights
   for (int i = 0 ; i < 50 ; i ++)
   {  
     addSequence();
@@ -118,13 +109,12 @@ void setup()
   for(int i = 0 ; i < songs.length ; i ++)
   { 
       button.add(new Buttons((col * 2)+250, y+5, 15, i));
-      println((col * 2)+250, y+5, 15, i);
       y+=yi;
   }
   
 }
 
-ArrayList<Lights> light = new ArrayList<Lights>();
+ArrayList<Square> squares = new ArrayList<Square>();
 ArrayList<Buttons> button = new ArrayList<Buttons>();
 ArrayList<Integer> sequence = new ArrayList<Integer>();
 
@@ -194,7 +184,7 @@ void mousePressed()
     if(mouseX > (width/4)*3-50 && mouseX < ((width/4)*3-50)+120 && mouseY > height-75 && mouseY < (height-75)+size2)
     {
        state = 3;
-       Mainmenu();
+       MainMenu();
     }
   
     if(mouseX > (width/2)+70 && mouseX < (width/2)+130 && mouseY > height-70 && mouseY < height-20)
@@ -258,44 +248,44 @@ void mousePressed()
      if(mouseX > 250 && mouseX < 550 && mouseY > (height/4) && mouseY < ((height/4)+100))
      {
            butt = 01;
-            DisplaySongs();
+           Songselection();
      }
      
      if(mouseX > 250 && mouseX < 550 && mouseY > (height/4)+150 && mouseY < ((height/4)+250))
      {
            butt = 02;
-            DisplaySongs();    
-      }
+           Songselection();
+    }
     
     if(mouseX > 250 && mouseX < 550 && mouseY > (height/4)+300 && mouseY < ((height/4)+400))
     {
            butt = 03;
-            DisplaySongs();    
-     }
+           Songselection();
+    }
     
     if(mouseX > width/2+100 && mouseX < width/2+400 && mouseY > (height/4) && mouseY < ((height/4)+100))
     {
            butt = 04;
-            DisplaySongs();    
+           Songselection();
     }
     
     if(mouseX > width/2+100 && mouseX < width/2+400 && mouseY > (height/4)+150 && mouseY < ((height/4)+250))
     {
            butt = 05;
-            DisplaySongs();    
+           Songselection();
     }
     
     if(mouseX > width/2+100 && mouseX < width/2+400 && mouseY > (height/4)+300 && mouseY < ((height/4)+400))
     {
            butt = 06;
-            DisplaySongs();   
-    } 
+           Songselection();
+    }
    }
 }
    
 void mouseClicked()
 {
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 25 && mouseY < 40)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 15 && mouseY < 30)
     {
       switch(m) {
        case 'A':
@@ -322,7 +312,7 @@ void mouseClicked()
       }
       state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 60 && mouseY < 75)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 50 && mouseY < 75)
     {
         switch(m) {
        case 'A':
@@ -345,7 +335,7 @@ void mouseClicked()
        }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 95 && mouseY < 110)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 85 && mouseY < 100)
     {
         switch(m) {
        case 'A':
@@ -363,7 +353,7 @@ void mouseClicked()
        }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 130 && mouseY < 145)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 120 && mouseY < 135)
     {
         switch(m) {
        case 'A':
@@ -375,7 +365,7 @@ void mouseClicked()
        }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 165 && mouseY < 180)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 155 && mouseY < 170)
     {
        switch(m) {
          case 'A':
@@ -387,59 +377,103 @@ void mouseClicked()
         }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 200 && mouseY < 215)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 190 && mouseY < 205)
     {
+        switch(m) {
+         case 'A':
         s = 5;
+       break;
+        }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 235 && mouseY < 250)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 225 && mouseY < 240)
     {
+         switch(m) {
+         case 'A':
         s = 6;
+       break;
+         }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 270 && mouseY < 285)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 260 && mouseY < 275)
     {
+         switch(m) {
+         case 'A':
         s = 7;
+       break;
+         }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 305 && mouseY < 320)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 295 && mouseY < 310)
     {
+         switch(m) {
+         case 'A':
         s = 8;
+       break;
+         }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 340 && mouseY < 355)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 330 && mouseY < 345)
     {
+        switch(m) {
+         case 'A':
         s = 9;
+       break;
+        }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 375 && mouseY < 390)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 365 && mouseY < 380)
     {
+         switch(m) {
+         case 'A':
         s = 10;
+       break;
+         }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 410 && mouseY < 425)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 400 && mouseY < 415)
     {
+         switch(m) {
+         case 'A':
         s = 11;
+       break;
+         }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 445 && mouseY < 460)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 435 && mouseY < 450)
     {
+         switch(m) {
+         case 'A':
         s = 12;
+       break;
+         }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 480 && mouseY < 495)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 470 && mouseY < 485)
     {
+        switch(m) {
+         case 'A':
         s = 13;
+       break;
+        }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 515 && mouseY < 430)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 505 && mouseY < 420)
     {
+        switch(m) {
+         case 'A':
         s = 14;
+       break;
+        }
         state = 2;
     } 
-    if(mouseX > 1045 && mouseX < 1065 && mouseY > 550 && mouseY < 465)
+    if(mouseX > 1045 && mouseX < 1065 && mouseY > 540 && mouseY < 455)
     {
+        switch(m) {
+         case 'A':
         s = 15;
+         break;
+        }
         state = 2;
     }   
 }
