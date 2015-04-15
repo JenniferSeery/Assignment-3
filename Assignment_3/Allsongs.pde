@@ -1,6 +1,7 @@
 void Allsongs()
 {
   background(0);
+  m = 'A';
   int x = 10;
   int i;
   int y = 30;
@@ -17,4 +18,11 @@ void Allsongs()
       text("Genre: " + meta[i].comment(), x + (col * 2), y);
       y+=yi;
   }
+  
+  for(int j = 0 ; j < songs.length ; j++)
+  {
+      button.get(j).display();
+  }
+  
+  image(On2, width/4, height-50, 50, 50);
 }
